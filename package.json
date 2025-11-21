@@ -18,6 +18,7 @@
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "@tailwindcss/vite": "^4.1.17",
     "firebase": "^12.5.0",
+    "patch-package": "^8.0.1",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.17",
     "vue": "^3.5.22",
