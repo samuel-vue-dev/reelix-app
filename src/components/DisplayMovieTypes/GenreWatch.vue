@@ -152,7 +152,7 @@ watch(
       <div class="auto-grid mt-5">
         <div v-for="movies in movieStores.moviesGenre" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
           <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
+          <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ movies.title || movies.name }}</h2>
           <p class="absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date || movies.first_air_date).getFullYear() }}</p>
           <p class="absolute bottom-[13px] z-[60] text-[12px] right-[10px]">
@@ -176,7 +176,7 @@ watch(
     <!-- Loading -->
     <div v-if="movieStores.movieLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text-center grid justify-center">
-        <div class="spinner mb-3"></div>
+        <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>
       </div>
     </div>
@@ -191,6 +191,5 @@ watch(
         </button>
       </div>
     </div>
-
   </div>
 </template>

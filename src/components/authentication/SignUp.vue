@@ -55,6 +55,15 @@ async function signup() {
   }
 }
 
+onMounted(() => {
+  if(userAuthStore.authSuccess == true) {
+  router.push({ path: "/"})
+  }
+  else {
+  router.push({ path: "/login" })
+  }
+  })
+
 </script>
 
 <template>
@@ -85,7 +94,7 @@ async function signup() {
         <input type="checkbox" @click="checkPassword" ref="passwordCheck" class="absolute left-[90%] top-4">
         <input v-model="password" ref="checkPassArea" type="password" placeholder="yourpassword" class="py-3 px-8 w-full border border-2 rounded-md" >
       </div>
-      <button @click="signup" class=" mt-3 mb-1 flex gap-[3px] justify-center p-3 rounded-md bg-[#3CB371]">Sign Up<div v-if="userAuthStore.authProcessing == true" class="spinner" ></div></button>
+      <button @click="signup" class=" mt-3 mb-1 flex gap-[3px] justify-center p-3 rounded-md bg-[#3CB371]">Sign Up<div v-if="userAuthStore.authProcessing == true" class="spinner border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[25px] w-[25px] aspect-[1/1] rounded-full"></div></button>
       <p class="text-[14px] text-center">Already have an account? <router-link to="/login" class="underline text-blue-500">Login</router-link></p>
       <transition name="fade">
         <div v-if="formCheckingError" class="bg-[rgb(255,255,255,0.8)] rounded-md backdrop-blur-sm p-3 ">

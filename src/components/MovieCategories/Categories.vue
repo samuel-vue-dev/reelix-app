@@ -26,9 +26,6 @@ function observeMovies() {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible'); // trigger slide-in
         }
-        else {
-           entry.target.classList.remove('visible'); // trigger slide-in
-        }
         });
     },
     { threshold: 0.1 }
@@ -44,7 +41,7 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
   onMounted(async () => {
   await fetchAll();
   await nextTick();
-  movieCards.value = Array.from(document.querySelectorAll('.movie-linear-gradient'));
+  movieCards.value = Array.from(document.querySelectorAll('.animate-in'));
   observeMovies();
   })
 </script>
@@ -54,43 +51,43 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       
       <!-- Popular Tvsshows -->
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','film']"/> Popular Tv Shows</h2><button @click="pushToMovieType('tv','popular','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
-      <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.popularTvs" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div  class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
-          <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
-          <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
-          <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
-     </div>
-      </div>
+<div class="mt-2 mb-4 overflow-x-scroll flex gap-3">
+  <div v-for="movies in movieStores.popularTvs" :key="movies.id" class=" animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+    <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="w-full h-full object-cover rounded-lg"/>
+    <div class="absolute inset-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
+    <h2 class="absolute bottom-[35px] left-2 text-white text-[13px] font-bold">{{ movies.title || movies.name }}</h2>
+    <p class="absolute bottom-[15px] left-2 text-white text-[11px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear() }}</p>
+    <p class="absolute bottom-[15px] right-2 text-white text-[12px] flex gap-[2px] items-center"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/>{{ movies.vote_average.toFixed(1) }}</p>
+  </div>
+</div>
            <!-- Trending Movies --> 
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','display']"/> Trending movies</h2><button @click="pushToMovieType('movie','popular','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
-      <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.popularMovies" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
+      <div class=" mb-4 mt-3 flex gap-3 overflow-x-scroll">
+        <div v-for="movies in movieStores.popularMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-md object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
-          <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
+          <p class="absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
-     </div>
+       </div>
       </div>
             <!-- Top TvShows -->
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','fire']"/> Top TvShows</h2><button @click="pushToMovieType('tv','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
-      <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.topRatedTvShows" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
+         <div class="mb-4 mt-3 flex gap-3 overflow-x-scroll">
+          <div v-for="movies in movieStores.topRatedTvShows" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-md object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
-     </div>
+       </div>
       </div>
            <!-- Top Rated Movies --> 
-      <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','star']"/> Top Rated movies</h2><button @click="pushToMovieType('movie','top_ratedr','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
-      <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.topRatedMovies" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
+      <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','star']"/> Top Rated movies</h2><button @click="pushToMovieType('movie','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
+      <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
+       <div v-for="movies in movieStores.topRatedMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md h-full w-full object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -99,10 +96,10 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       
             <!-- Airing Today -->
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','clock']"/> Airing Today</h2><button @click="pushToMovieType('tv','airing_today','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
-      <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.airingToday" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="overlay-shadow absolute top-0 left-0 h-full w-full rounded-md"></div>
+      <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
+        <div v-for="movies in movieStores.airingToday" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md left-0 absolute top-0 h-full w-full object-auto">
+          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -111,12 +108,12 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
     </div>
     
               <!-- loading movie -->
-         <div v-if="movieStores.movieLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
-        <div class="text-center grid justify-center">
-          <div  class="spinner mb-3" ></div>
+    <div v-if="movieStores.movieLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
+      <div class="text-center grid justify-center">
+        <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>
-        </div>
       </div>
+   </div>
       
       <!-- loading movie error -->
          <div v-if="movieStores.errorLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
@@ -131,44 +128,16 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
   </div>
 </template>
 <style>
-  
-  .auto-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
-  z-index: 200;
-}
-
-.auto-grid .overlay-shadow {
-  background: linear-gradient(to bottom, rgb(0,0,0,0),rgb(0,0,0,0), rgb(0,0,0,0.9));
-  z-index: 50;
-  height: 100%;
-  width: 100%;
-}
-
+   
 /* Slide-in from bottom animation */
-.movie-linear-gradient {
-  opacity: 0;
-  transform: translateY(40px);
+.animate-in {
+opacity: 0;
+  transform: translateX(20px);
   transition: all 0.5s ease;
 }
 
-.movie-linear-gradient.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-@media screen and (min-width: 768px) {
-.auto-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 10px;
-}
-.movie-linear-gradient {
-min-height: 400px;
-width: 100%;
-aspect-ratio: 2 / 3;
-}
+.animate-in.visible {
+opacity: 1;
+transform: translateX(0);
 }
 </style>

@@ -50,7 +50,17 @@ async function login() {
     formCheckingError.value = null;
     await userAuthStore.loginAuth(email.value, password.value);
   }
-}
+  }
+  
+  onMounted(() => {
+  if(userAuthStore.authSuccess == true) {
+  router.push({ path: "/"})
+  }
+  else {
+  router.push({ path: "/login" })
+  }
+  })
+  
 </script>
 
 <template>
@@ -79,9 +89,9 @@ async function login() {
         <input type="checkbox" @click="checkPassword" ref="passwordCheck" class="absolute left-[90%] top-4">
         <input v-model="password" ref="checkPassArea" type="password" placeholder="yourpassword" class="py-3 px-8 w-full border border-2 rounded-md" >
       </div>
-      <button @click="login" class=" mt-3 mb-1 flex gap-[3px] justify-center p-3 rounded-md bg-[#3CB371]">Login <div v-if="userAuthStore.authProcessing == true" class="spinner" ></div></button>
+      <button @click="login" class=" mt-3 mb-1 flex gap-[3px] justify-center p-3 rounded-md bg-[#3CB371]">Login <div v-if="userAuthStore.authProcessing == true" class="spinner border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[25px] w-[25px] aspect-[1/1] rounded-full" ></div></button>
       <p class="text-[14px] text-center">Already have an account? <router-link to="/sign-up" class="underline text-blue-500">SignUp</router-link></p>
-            <transition name="fade">
+      <transition name="fade">
         <div v-if="formCheckingError" class="bg-[rgb(255,255,255,0.8)] rounded-md backdrop-blur-sm p-3 ">
       <p class="text-red-500 text-center">{{ formCheckingError }}</p>
       </div>
@@ -101,20 +111,6 @@ async function login() {
   </div>
 </template>
 <style>
-.spinner {
-      width: 25px;
-      height: 25px;
-      border: 5px solid rgba(255,255,255,0.2);
-      border-top-color: #fff;
-      font-weight: bold;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    
-  }
   
   .fade-enter-active,
 .fade-leave-active { transition: opacity 0.3s ease; }

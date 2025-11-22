@@ -80,12 +80,16 @@ showSearchBar.value = !showSearchBar.value;
     <nav class="p-4 flex justify-between items-center">
       <div class="flex gap-[2px] items-center">
         <!-- openSidebar ////// ======== -->
-        <button @click="openSideBar" class="text-white block md:hidden lg:hidden text-[25px]">
-          <FontAwesomeIcon :icon="['fas','bars']" />
-        </button>
+        <button @click="openSideBar"class="text-white block md:hidden lg:hidden text-[20px] rounded-sm p-1 cursor-pointer bg-[rgb(255,255,255,0.2)] border-gray-200">
+  <FontAwesomeIcon :icon="['fas','bars']" />
+</button>
+<router-link to="/" class="flex items-center">
         <img class="h-[40px] "src="../assets/Screenshot_20251022-094039.jpg">
         <h2 class="text-[20px] font-bold">Reelix<span class="text-[#3CB371]">Play</span></h2>
+        </router-link>
       </div>
+      
+      <!-- navlist component -->
       <div ref="showNav" class="nav-list-showing block nav-list bg-black p-6">
         <div class="text-right flex justify-end text-white">
           <!-- SidebarClose --->
@@ -93,12 +97,12 @@ showSearchBar.value = !showSearchBar.value;
             <FontAwesomeIcon :icon="['fas','times']" />
           </button>
           </div>
-          <ul class="flex flex-col gap-[10px] md:flex lg-flex md:flex-row lg:flex-row md:gap-[20px] lg:gap-[20px]">
+          <ul class="flex flex-col gap-[10px] md:flex lg-flex md:flex-row lg:flex-row md:gap-[20px] lg:gap-[20px] text-md">
             <li v-if="userAuthStore.authSuccess == false" @click="() => router.push({ path:'/login'})"><FontAwesomeIcon :icon="['fas','sign-in-alt']"/> Login</li>
             <li v-if="userAuthStore.authSuccess == false" @click="() => router.push({ path: '/sign-up'})"><FontAwesomeIcon :icon="['fas','user-plus']"/> Signup</li>
             <li class="flex font-bold items-center w-[160px] gap-[5px] " v-else >UserID: <span class="font-normal truncate">{{ userAuthStore.user?.uid }}</span><FontAwesomeIcon :icon="['fas','copy']"/></li>
-             <li><FontAwesomeIcon :icon="['fas','tv']" />Tv Shows</li>
-             <li><FontAwesomeIcon :icon="['fas','film']" />Movies</li>
+             <li @click="pushToMovieType('tv','popular','1')"><FontAwesomeIcon :icon="['fas','tv']" /> Tv Shows</li>
+             <li @click="pushToMovieType('movie','popular','1')"><FontAwesomeIcon :icon="['fas','film']" /> Movies</li>
              <li><FontAwesomeIcon :icon="['fas','blog']" /> Blogs</li>
             <li class="relative" @click="toggleDropdown">Genre<FontAwesomeIcon :icon="['fas','angle-down']"/>
             <div ref="showdropdown" class="relative bg-black block hidelist">
@@ -125,7 +129,6 @@ showSearchBar.value = !showSearchBar.value;
             </ul>
             </div>
             </li>
-
           </ul>
       </div>
       <!--- Mobile Show --->
@@ -178,12 +181,12 @@ showSearchBar.value = !showSearchBar.value;
 <transition name="fade-in-form">
   <div v-if="showSearchBar" class="fixed top-0 z-[1000] left-0 bg-[rgb(0,0,0,0.5)] backdrop-blur-md h-screen w-full">
     <div class="max-w-[500px] mx-auto my-0">
-      <div class="text-right mt-5 mr-4">
+      <div class="text-right mt-3 mr-4 mb-2">
         <button @click="toggleSearchBar" class="text-white text-right text-4xl"><FontAwesomeIcon :icon="['fad','times']"/></button>
-      </div>  <div class="relative p-3 ">
-      <button class="text-gray-300 absolute top-6 text-xl left-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
-      <button class="px-3 py-2 bg-white text-black rounded-md absolute top-4 right-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
-      <input type="text" placeholder="enter your search keyword" class="px-9 py-3 border border-white rounded-md text-gray-300 w-full">
+      </div>  <div class="relative p-3">
+      <button class="text-gray-300 absolute top-[28px] text-xl left-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
+      <button class="px-3 py-2 bg-white text-black rounded-full ap absolute top-[21px] right-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
+      <input type="text" placeholder="enter your search keyword" class="rounded-full px-9 py-4 border border-white text-gray-300 w-full">
     </div>
   </div>
   </div>

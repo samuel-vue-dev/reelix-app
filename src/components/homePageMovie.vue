@@ -44,24 +44,22 @@ onUnmounted(() => {
     </div>
     </div>
       <!-- loading movie -->
-         <div v-if="movieStores.homePageLoading" class="p-5 absolute top-0 left-0 bg-black h-screen w-full grid items-center">
+      <div v-if="movieStores.homePageLoading" class="p-5 absolute top-0 left-0 bg-black h-screen w-full grid items-center">
         <div class="text-center grid justify-center">
-          <div  class="spinner mb-3" ></div>
-        <h2 class="text-white text-center">Loading....</h2>
+          <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
+          <h2 class="text-white text-center">Loading....</h2>
         </div>
       </div>
       <!-- loading movie error -->
-         <div v-if="movieStores.homePageError" class="p-5 absolute top-0 left-0 bg-black h-screen w-full grid items-center">
+         <div v-if="movieStores.homePageError" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
         <div class="text-white text-center">
           <FontAwesomeIcon class="text-7xl text-red-300 mb-2" :icon="['fas','exclamation-triangle']" />
           <h2 class="text-white text-center">Network Error. please check your connection and try again.</h2>
           <button @click="tryAgain" class="bg-white text-black border border-2 mt-2 px-8 py-3 rounded-full focus:bg-inherit focus:text-white ">Try again</button>
         </div>
       </div>
-      
     </div>
 </template>
-
 <style>
 .homepagemovie .overlay-shadow {
   background-image: linear-gradient(

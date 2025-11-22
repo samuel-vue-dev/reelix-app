@@ -87,7 +87,7 @@ export const movieStore = defineStore('moviestores', {
       const url = `https://api.themoviedb.org/3/tv/airing_today?&api_key=647bddfa618b72605416f35a2833606d`;
       await this.fetchForEachCategories(url,'airingToday');
   },
-  
+  // Movie Type fetch Function
   async fetchForMovieTypes({ type, subType, page }) {
       this.movieLoading = true;
       this.errorLoading = false;
@@ -111,6 +111,7 @@ export const movieStore = defineStore('moviestores', {
       this.errorLoading = true;
   }
   },
+  // Genre movie Fetch Function
   async fetchForGenreTypes({ genreId, pageId }) {
       this.movieLoading = true;
       this.errorLoading = false;
