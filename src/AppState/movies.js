@@ -15,6 +15,7 @@ export const movieStore = defineStore('moviestores', {
     airingToday: null,
     moviesType: [],
     moviesGenre: [],
+    movieSearched: null,
   }),
   actions: {
  async fetchHomePageMovie() {
@@ -64,6 +65,7 @@ export const movieStore = defineStore('moviestores', {
            alert('fails to fetch');
            this.movieLoading = false;
            this.errorLoading = true;
+           this[type] = null;
          }
   },
   async fetchForPopularTvShows() {
@@ -101,8 +103,8 @@ export const movieStore = defineStore('moviestores', {
         alert("Network error");
         return;
       }
-       const data = await response.json();
-       this.moviesType = data.results;
+      const data = await response.json();
+      this.moviesType = data.results;
       this.movieLoading = false;
       this.errorLoading = false;
       
@@ -132,7 +134,33 @@ export const movieStore = defineStore('moviestores', {
   } catch(error) {
       this.movieLoading = false;
       this.errorLoading = true;
+      this.moviesGenre = null;
   }
-  },  // Action Block ends here //===== //// ====
+  }, 
+     async fetchSearchMovies({ searchInput, pageQuery }) {
+      this.movieLoading = true;
+      this.errorLoading = false;
+       const url = `https://api.themoviedb.org/3/search/movie?&api_key=647bddfa618b72605416f35a2833606d&query=${searchInput}&page=${pageQuery}`; 
+       try {
+     const response = await fetch(url);
+     if(!response.ok) {
+       this.movieLoading = false;
+       this.errorLoading = true;
+       alert("Network Error")
+       return;
+     }
+      const data = await response.json();
+      this.movieSearched = data.results;
+      this.movieLoading = false;
+      this.errorLoading = false;
+   } catch(error) {
+       this.movieLoading = false;
+       this.errorLoading = true;
+       this.movieSearched = null;
+   }
+    },
+    
+
+  // Action Block ends here //===== //// ====
   }
 })

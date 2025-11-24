@@ -72,11 +72,11 @@ function observeMovies() {
 onMounted(() => showMovies());
 
 watch(
-  () => route.params.page,
-  async (newPage) => {
-    moviePage.value = Number(newPage) || 1;
-    movieType.value = route.params.type;
-    movieSubType.value = route.params.subType;
+  () => [route.params.page, route.params.type, route.params.subType ],
+  async ([ page, type, subType ]) => {
+    moviePage.value = Number(page) || 1;
+    movieType.value = type;
+    movieSubType.value = subType;
     await showMovies();
   }
 );

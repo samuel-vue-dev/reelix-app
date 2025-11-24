@@ -53,7 +53,7 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','film']"/> Popular Tv Shows</h2><button @click="pushToMovieType('tv','popular','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
 <div class="mt-2 mb-4 overflow-x-scroll flex gap-3">
   <div v-for="movies in movieStores.popularTvs" :key="movies.id" class=" animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
-    <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="w-full h-full object-cover rounded-lg"/>
+    <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="w-full h-full object-auto rounded-lg"/>
     <div class="absolute inset-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
     <h2 class="absolute bottom-[35px] left-2 text-white text-[13px] font-bold">{{ movies.title || movies.name }}</h2>
     <p class="absolute bottom-[15px] left-2 text-white text-[11px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear() }}</p>
@@ -64,8 +64,8 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','display']"/> Trending movies</h2><button @click="pushToMovieType('movie','popular','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class=" mb-4 mt-3 flex gap-3 overflow-x-scroll">
         <div v-for="movies in movieStores.popularMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
-          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-md object-cover">
-          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
+          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-lg object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class="absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -75,8 +75,8 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','fire']"/> Top TvShows</h2><button @click="pushToMovieType('tv','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
          <div class="mb-4 mt-3 flex gap-3 overflow-x-scroll">
           <div v-for="movies in movieStores.topRatedTvShows" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
-          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-md object-cover">
-          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
+          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-lg object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -86,8 +86,8 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','star']"/> Top Rated movies</h2><button @click="pushToMovieType('movie','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
        <div v-for="movies in movieStores.topRatedMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-md h-full w-full object-cover">
-          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
+          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-lg h-full w-full object-cover">
+          <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -98,8 +98,8 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','clock']"/> Airing Today</h2><button @click="pushToMovieType('tv','airing_today','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
         <div v-for="movies in movieStores.airingToday" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
-          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md left-0 absolute top-0 h-full w-full object-auto">
-          <div class="absolute inset-0 top-0 left-0 rounded-md bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
+          <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-lg left-0 absolute top-0 h-full w-full object-auto">
+          <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
           <p class=" absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date).getFullYear() || new Date(movies.first_air_date).getFullYear()}}</p>    
           <p class="absolute bottom-[13px]  z-[60] text-[12px] right-[10px]"><FontAwesomeIcon class="text-[#FFA500]" :icon="['fas','star']"/> {{ movies.vote_average.toFixed(1) }}</p>
@@ -108,7 +108,7 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
     </div>
     
               <!-- loading movie -->
-    <div v-if="movieStores.movieLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
+    <div v-if="movieStores.movieLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text-center grid justify-center">
         <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>
@@ -116,7 +116,7 @@ router.push({ path: `/watch/${val1}/${val2}/${val3}`})
    </div>
       
       <!-- loading movie error -->
-         <div v-if="movieStores.errorLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
+         <div v-if="movieStores.errorLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
          <div class="text-white text-center">
           <FontAwesomeIcon class="text-7xl text-red-300 mb-2" :icon="['fas','exclamation-triangle']" />
           <h2 class="text-white text-center">Network Error. please check your connection and try again.</h2>

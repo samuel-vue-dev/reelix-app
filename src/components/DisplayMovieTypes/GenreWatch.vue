@@ -16,66 +16,26 @@ const movieCards = ref([]);
 
 // Genre Title 
 const genreTitle = computed(() => {
-if(movieType.value == "action") {
-return "Action Movies";
-}
-else if (movieType.value == "adventure") {
-return "Adventure Movies";
-}
-else if(movieType.value == "animation") {
-return "Animation Movies";
-}
-else if(movieType.value == "comedy") {
-return "Comedy Movies";
-}
-else if(movieType.value == "crime") {
-return "Crime Movies";
-}
-else if(movieType.value == "drama") {
-return "Drama Movies";
-}
-else if(movieType.value == "documentry") {
-return "Documentry Movies";
-}
-else if(movieType.value == "family") {
-return "Family Movies";
-}
-else if(movieType.value == "fantacy") {
-return "Fantacy Movies";
-}
-else if(movieType.value == "history") {
-return "History Movies";
-}
-else if(movieType.value == "horror") {
-return "Horror Movies";
-}
-else if(movieType.value == "music") {
-return "Music";
-}
-else if(movieType.value == "mystery") {
-return "Mystery Movies";
-}
-else if(movieType.value == "romance") {
-return "Romance Movies"
-}
-else if(movieType.value == "science and fiction") {
-return "Science and Fiction Movies";
-}
-else if(movieType.value == "tv movie") {
-return "Tv Movies Movies";
-}
-else if(movieType.value == "thriller") {
-return "Thriller Movies";
-}
-else if(movieType.value == "war") {
-return "War Movies";
-}
-else if(movieType.value == "western") {
-return "Western Movies";
-}
-else {
+if(movieType.value == "action") return "Action Movies";
+if(movieType.value == "adventure") return"Adventure Movies";
+if(movieType.value == "animation") return "Animation Movies";
+if(movieType.value == "comedy") return "Comedy Movies";
+if(movieType.value == "crime") return "Crime Movies";
+if(movieType.value == "drama") return "Drama Movies";
+if(movieType.value == "documentry") return "Documentry Movies";
+if(movieType.value == "family") return "Family Movies";
+if(movieType.value == "fantacy") return "Fantacy Movies";
+if(movieType.value == "history") return "History Movies";
+if(movieType.value == "horror") return "Horror Movies";
+if(movieType.value == "music") return "Music";
+if(movieType.value == "mystery") return "Mystery Movies";
+if(movieType.value == "romance") return "Romance Movies";
+if(movieType.value == "science and fiction") return "Science and Fiction Movies";
+if(movieType.value == "tv movie") return "Tv Movies Movies";
+if(movieType.value == "thriller") return "Thriller Movies";
+if(movieType.value == "war") return "War Movies";
+if(movieType.value == "western") return "Western Movies";
 return "404";
-}
 })
 
 // Fetch movies
@@ -125,11 +85,11 @@ function observeMovies() {
 onMounted(() => showMovies());
 
 watch(
-  () => route.params.page,
-  async (newPage) => {
-    moviePage.value = Number(newPage) || 1;
-    movieType.value = route.params.genreType;
-    movieSubType.value = route.params.id;
+  () => [route.params.page, route.params.genreType, route.params.id ],
+  async ([ page, genreType, id]) => {
+    moviePage.value = Number(page) || 1;
+    movieType.value = genreType;
+    movieSubType.value = id;
     await showMovies();
   }
 );

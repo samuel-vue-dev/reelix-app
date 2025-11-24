@@ -51,7 +51,7 @@ onUnmounted(() => {
         </div>
       </div>
       <!-- loading movie error -->
-         <div v-if="movieStores.homePageError" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+         <div v-if="movieStores.homePageError" class="p-5 absolute top-0 left-0 bg-black h-screen w-full grid items-center">
         <div class="text-white text-center">
           <FontAwesomeIcon class="text-7xl text-red-300 mb-2" :icon="['fas','exclamation-triangle']" />
           <h2 class="text-white text-center">Network Error. please check your connection and try again.</h2>

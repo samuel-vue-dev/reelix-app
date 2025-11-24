@@ -2,7 +2,6 @@
   import { ref, onMounted, watch} from 'vue';
   import { useRouter, useRoute } from "vue-router";
   import { userAuth } from '@/AppState/auth'
-  import { searchStore } from '@/AppState/search'
   const userAuthStore = userAuth();
   const router = useRouter();
   const showNav = ref(null);
@@ -12,6 +11,7 @@
   const showIfUserNotLogin = ref(false);
   const showSearchBar = ref(false);
   const showdropdown = ref(null);
+  const userInput = ref(null);
 
   function pushToMovieType(val1,val2,val3) {
 router.push({ path: `/watch/${val1}/${val2}/${val3}`})
@@ -72,6 +72,10 @@ showSearchBar.value = !showSearchBar.value;
   }
   }
   
+  function searchMovie(val1)  {
+  router.push({ path: `/search/${userInput.value.toLowerCase().replace(/\s+/g, '+')}/${val1}`});
+  showSearchBar.value = !showSearchBar.value;
+  }
   </script>
 <template>
   <!--- AppHeader /////// ========= -->
@@ -185,8 +189,8 @@ showSearchBar.value = !showSearchBar.value;
         <button @click="toggleSearchBar" class="text-white text-right text-4xl"><FontAwesomeIcon :icon="['fad','times']"/></button>
       </div>  <div class="relative p-3">
       <button class="text-gray-300 absolute top-[28px] text-xl left-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
-      <button class="px-3 py-2 bg-white text-black rounded-full ap absolute top-[21px] right-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
-      <input type="text" placeholder="enter your search keyword" class="rounded-full px-9 py-4 border border-white text-gray-300 w-full">
+      <button @click="searchMovie('1')" class="px-3 py-2 bg-white text-black rounded-full ap absolute top-[21px] right-5"><FontAwesomeIcon :icon="['fas','search']" /></button>
+      <input v-model="userInput" type="text" placeholder="enter your search keyword" class="rounded-full px-9 py-4 border border-white text-gray-300 w-full">
     </div>
   </div>
   </div>
@@ -200,7 +204,6 @@ showSearchBar.value = !showSearchBar.value;
  z-index: 999;
  font-family: "roboto condensed";
  font-weight: 700;
-
  }
  
 .cancelNavWithSpace {
