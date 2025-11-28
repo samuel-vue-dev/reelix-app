@@ -2,9 +2,10 @@ import IndexPage from './components/IndexPage.vue';
 import Login from  './components/authentication/Login.vue';
 import SignUp from './components/authentication/SignUp.vue';
 import Search from './components/Search.vue';
+import MovieDetails from './components/ViewAndSaved/MovieDetails.vue';
 import MovieType from './components/DisplayMovieTypes/MovieType.vue';
 import GenreWatch from './components/DisplayMovieTypes/GenreWatch.vue';
-import Watchlist from './components/MovieSaved/Watchlist.vue';
+import WatchList from './components/ViewAndSaved/WatchList.vue';
 import { createRouter, createWebHistory } from "vue-router";
 export const router = createRouter({
   history: createWebHistory(),
@@ -12,10 +13,11 @@ export const router = createRouter({
     { path: "/", component: IndexPage },
     { path: "/login", component: Login},
     { path: "/sign-up", component: SignUp },
+    { path: "/search/:searchKeyWord/:page", component: Search },
     { path: "/watch/:type/:subType/:page", component: MovieType },
-    { path: "/watch-list", component: Watchlist },
     { path: "/genre/:genreType/:id/:page", component: GenreWatch },
-    { path: "/search/:searchKeyWord/:page", component: Search }
+    { path: "/watch-list", component: WatchList },
+    { path: "/movie-details/:type/:id", component: MovieDetails }
     ],
         scrollBehavior(to, from, savedPosition) {
       return { top: 0 };

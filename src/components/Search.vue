@@ -17,7 +17,7 @@
  async function searchMovieFunction() {
   await movieStores.fetchSearchMovies({ searchInput: userInput.value.toLowerCase().replace(/\s+/g, '+'), pageQuery:pageId.value })
   await nextTick();
-  movieCards.value = Array.from(document.querySelectorAll('.movie-linear-gradient'));
+  movieCards.value = Array.from(document.querySelectorAll('.slide-from-bottom'));
   observeMovies();
   }
   
@@ -25,9 +25,8 @@
   router.push({ path: `/search/${userNewInput.value.toLowerCase().replace(/\s+/g, '+')}/${val1}` });
   await movieStores.fetchSearchMovies({ searchInput: userNewInput.value.toLowerCase().replace(/\s+/g, '+'), pageQuery: val1 })
   await nextTick();
-  movieCards.value = Array.from(document.querySelectorAll('.movie-linear-gradient'));
+  movieCards.value = Array.from(document.querySelectorAll('.slide-from-bottom'));
   observeMovies();
-
   }
   
   async function nextPage() {
@@ -85,8 +84,8 @@ function tryAgain() {
   
       <div v-if="movieStores.movieSearched?.length > 0">
         <div class="auto-grid mt-5">
-        <div v-for="search in movieStores.movieSearched" :key="search.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3 text-white">
-          <img :src="`https://image.tmdb.org/t/p/original${search.poster_path}`" class="rounded-md left-0 absolute top-0 h-full w-full object-auto">
+        <div v-for="search in movieStores.movieSearched" :key="search.id" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3 text-white">
+          <img :src="`https://image.tmdb.org/t/p/original${search.poster_path}`" class="rounded-md h-full w-full object-auto">
           <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ search.title || search.name }}</h2>
           <p class="absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(search.release_date).getFullYear() || new Date(search.first_air_date).getFullYear()}}</p>    
@@ -116,7 +115,7 @@ function tryAgain() {
   </div>
 
               <!-- loading movie -->
-    <div v-if="movieStores.movieLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+    <div v-if="movieStores.isLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text-center grid justify-center">
         <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>
@@ -124,7 +123,7 @@ function tryAgain() {
    </div>
       
       <!-- loading movie error -->
-         <div v-if="movieStores.errorLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+         <div v-if="movieStores.isError" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
          <div class="text-white text-center">
           <FontAwesomeIcon class="text-7xl text-red-300 mb-2" :icon="['fas','exclamation-triangle']" />
           <h2 class="text-white text-center">Network Error. please check your connection and try again.</h2>

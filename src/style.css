@@ -28,13 +28,13 @@ body {
   }
 
 
-.movie-linear-gradient {
+.slide-from-bottom{
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.5s ease;
 }
 
-.movie-linear-gradient.visible {
+.slide-from-bottom.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -45,7 +45,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 10px;
 }
-.movie-linear-gradient {
+.slide-from-bottom {
 min-height: 400px;
 width: 100%;
 aspect-ratio: 2 / 3;

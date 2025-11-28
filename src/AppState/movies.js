@@ -6,8 +6,8 @@ export const movieStore = defineStore('moviestores', {
     movieImage: null,
     homePageLoading: false,
     homePageError: false,
-    movieLoading: false, // Loading state for homepage displaying movies
-    errorLoading: false, // errorLoading for homepage displaying movies
+    isLoading: false, // Loading state for homepage displaying movies
+    isError: false, // errorLoading for homepage displaying movies
     popularTvs: null,
     popularMovies: null,
     topRatedTvShows: null,
@@ -46,25 +46,25 @@ export const movieStore = defineStore('moviestores', {
     },
     
      async  fetchForEachCategories(url,type) {
-       this.movieLoading = true;
-       this.errorLoading = false;
+       this.isLoading = true;
+       this.isError = false;
        try { 
          const response = await fetch(url);
          if(!response.ok) {
-           this.movieLoading = false;
-           this.errorLoading = true;
+           this.isLoading = false;
+           this.isError = true;
            alert('Network Error');
            return;
          }
-         this.movieLoading = false;
-         this.errorLoading = false;
+         this.isLoading = false;
+         this.isError = false;
          const data = await response.json();
          this[type] = data.results;
          }
          catch(error) {
            alert('fails to fetch');
-           this.movieLoading = false;
-           this.errorLoading = true;
+           this.isLoading = false;
+           this.isError = true;
            this[type] = null;
          }
   },
@@ -91,76 +91,75 @@ export const movieStore = defineStore('moviestores', {
   },
   // Movie Type fetch Function
   async fetchForMovieTypes({ type, subType, page }) {
-      this.movieLoading = true;
-      this.errorLoading = false;
+      this.isLoading = true;
+      this.isError = false;
       const url = `https://api.themoviedb.org/3/${type}/${subType}?api_key=647bddfa618b72605416f35a2833606d&language=en-US&page=${page}`;     
       try {
-        
       const response = await fetch(url);
       if(!response.ok) {
-        this.movieLoading = false;
-        this.errorLoading = true;
+        this.isLoading = false;
+        this.isError = true;
         alert("Network error");
         return;
       }
       const data = await response.json();
       this.moviesType = data.results;
-      this.movieLoading = false;
-      this.errorLoading = false;
+      this.isLoading = false;
+      this.isError = false;
       
   } catch(error) {
-      this.movieLoading = false;
-      this.errorLoading = true;
+      this.isLoading = false;
+      this.isError = true;
+      this.moviesType = null;
   }
   },
   // Genre movie Fetch Function
   async fetchForGenreTypes({ genreId, pageId }) {
-      this.movieLoading = true;
-      this.errorLoading = false;
+      this.isLoading = true;
+      this.isError = false;
       const url = `https://api.themoviedb.org/3/discover/movie?api_key=647bddfa618b72605416f35a2833606d&language=en-US&with_genres=${genreId}&page=${pageId}`;     
   try {
       const response = await fetch(url);
       if(!response.ok) {
-        this.movieLoading = false;
-        this.errorLoading = true;
+        this.isLoading = false;
+        this.isError = true;
         alert("Network error");
         return;
       }
        const data = await response.json();
        this.moviesGenre = data.results;
-      this.movieLoading = false;
-      this.errorLoading = false;
+      this.isLoading = false;
+      this.isError = false;
       
   } catch(error) {
-      this.movieLoading = false;
-      this.errorLoading = true;
+      this.isLoading = false;
+      this.isError = true;
       this.moviesGenre = null;
   }
   }, 
      async fetchSearchMovies({ searchInput, pageQuery }) {
-      this.movieLoading = true;
-      this.errorLoading = false;
+      this.isLoading = true;
+      this.isError = false;
        const url = `https://api.themoviedb.org/3/search/movie?&api_key=647bddfa618b72605416f35a2833606d&query=${searchInput}&page=${pageQuery}`; 
        try {
      const response = await fetch(url);
      if(!response.ok) {
-       this.movieLoading = false;
-       this.errorLoading = true;
+       this.isLoading = false;
+       this.isError = true;
        alert("Network Error")
        return;
      }
       const data = await response.json();
       this.movieSearched = data.results;
-      this.movieLoading = false;
-      this.errorLoading = false;
+      this.isLoading = false;
+      this.isError = false;
    } catch(error) {
-       this.movieLoading = false;
-       this.errorLoading = true;
+       this.isLoading = false;
+       this.isError = true;
        this.movieSearched = null;
    }
     },
     
-
   // Action Block ends here //===== //// ====
   }
 })

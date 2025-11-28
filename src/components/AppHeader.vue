@@ -71,7 +71,7 @@ showSearchBar.value = !showSearchBar.value;
   router.push({ path: "/watch-list" });
   }
   }
-  
+
   function searchMovie(val1)  {
   router.push({ path: `/search/${userInput.value.toLowerCase().replace(/\s+/g, '+')}/${val1}`});
   showSearchBar.value = !showSearchBar.value;

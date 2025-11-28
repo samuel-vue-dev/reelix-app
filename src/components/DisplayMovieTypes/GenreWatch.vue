@@ -45,7 +45,7 @@ async function showMovies() {
     pageId: moviePage.value,
       });
 await nextTick();
-movieCards.value = Array.from(document.querySelectorAll('.movie-linear-gradient'));
+movieCards.value = Array.from(document.querySelectorAll('.slide-from-bottom'));
 observeMovies();
 }
 
@@ -102,7 +102,7 @@ watch(
   <div class="pl-5 pr-5 pt-[80px] md:pt-[110px] lg:pt-[110px] movie-box text-white ">
 
     <!-- Movies List -->
-    <div v-if="!movieStores.movieLoading && !movieStores.errorLoading">
+    <div v-if="!movieStores.isLoading && !movieStores.isError">
       <div class="flex justify-between items-center mb-3 font-[roboto_condensed]">
         <h2 class="text-xl font-bold">
           <FontAwesomeIcon :icon="['fas','tv']" /> {{ genreTitle }}
@@ -110,8 +110,8 @@ watch(
       </div>
 
       <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.moviesGenre" :key="movies.id" class="movie-linear-gradient bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 min-h-[225px] min-w-[150px] relative mb-3">
-          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md left-0 absolute top-0 h-full w-full object-auto">
+        <div v-for="movies in movieStores.moviesGenre" :key="movies.id" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3">
+          <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md h-full w-full object-auto">
           <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ movies.title || movies.name }}</h2>
           <p class="absolute z-[60] text-[11px] left-3 bottom-[13px]">{{ new Date(movies.release_date || movies.first_air_date).getFullYear() }}</p>
@@ -134,7 +134,7 @@ watch(
     </div>
 
     <!-- Loading -->
-    <div v-if="movieStores.movieLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+    <div v-if="movieStores.isLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text-center grid justify-center">
         <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>
@@ -142,7 +142,7 @@ watch(
     </div>
 
     <!-- Error -->
-    <div v-if="movieStores.errorLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+    <div v-if="movieStores.isError" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text-white text-center">
         <FontAwesomeIcon class="text-7xl text-red-300 mb-2" :icon="['fas','exclamation-triangle']" />
         <h2 class="text-white text-center">Network Error. Please check your connection and try again.</h2>
