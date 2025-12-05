@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { auth } from '../firebase';
 import  { router } from '../router';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from 'firebase/auth'
+import { supabase } from '../utils/supabaseConfig'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
 export const userAuth = defineStore('user-authentication', {
   state: () => ({
     // state Declaring ==== ////
@@ -10,10 +11,11 @@ export const userAuth = defineStore('user-authentication', {
      authError: false,
      authErrorMessage: null,
      authSuccess: JSON.parse(localStorage.getItem("authStatus")) || false,
+     googleAuthErrorError: false,
   }),
   actions: {
     // Signup authentication for user ==== ////
-  async  signUpAuth(email, password) {
+  async  signUpAuth(email, password ) {
     
     // State Declaring Handling === ////
     this.authProcessing = true;
@@ -76,7 +78,31 @@ export const userAuth = defineStore('user-authentication', {
         this.authSuccess = false;
       }
     },
-    
+ async signInWithGoogle() {
+   this.authProcessing = true;
+   this.googleAuthError = false;
+      try {
+        const provider = new GoogleAuthProvider();
+        const result =await signInWithPopup(auth, provider);
+        const userdata = result.user;
+        this.user = userdata;
+        this.authSuccess = true;
+        this.authProcessing = false;
+        this.googleAuthError = 
+        localStorage.setItem("userInfo", JSON.stringify(userdata));
+        localStorage.setItem("authStatus", true);
+        setTimeout(() => {
+        router.push({ path: "/"});
+        }, 1000)
+
+      }catch(error){
+        this.authProcessing = false;
+        this.googleAuthError = true;
+        setTimeout(() => {
+          this.googleAuthError = false;
+        }, 4000)
+      }
+    },
     logOut() {
         this.authProcessing = false;
         this.authError = false;

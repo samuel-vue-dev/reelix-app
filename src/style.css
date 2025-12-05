@@ -45,9 +45,13 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 10px;
 }
-.slide-from-bottom {
+.set-min-height {
 min-height: 400px;
 width: 100%;
 aspect-ratio: 2 / 3;
 }
 }
+
+
+
+

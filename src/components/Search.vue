@@ -42,6 +42,12 @@ async function prevPage() {
   router.push({ path: `/search/${userInput.value}/${pageId.value}` });
 }
 
+// Get movies Details
+function getMovieDetails(val) {
+router.push({ path: `/movie-details/movie/${val}` })
+}
+
+
 watch(
 () => [route.params.page, route.params.searchKeyWord],
 async ([ page, searchKeyWord])=> {
@@ -84,7 +90,7 @@ function tryAgain() {
   
       <div v-if="movieStores.movieSearched?.length > 0">
         <div class="auto-grid mt-5">
-        <div v-for="search in movieStores.movieSearched" :key="search.id" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3 text-white">
+        <div v-for="search in movieStores.movieSearched" :key="search.id" @click="getMovieDetails(search.id)" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3 text-white">
           <img :src="`https://image.tmdb.org/t/p/original${search.poster_path}`" class="rounded-md h-full w-full object-auto">
           <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ search.title || search.name }}</h2>

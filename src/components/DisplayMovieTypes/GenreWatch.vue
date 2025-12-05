@@ -56,6 +56,11 @@ async function nextPage() {
   router.push({ path: `/genre/${movieType.value}/${movieSubType.value}/${moviePage.value}` });
 }
 
+// Get movie Details
+function getMovieDetails(val) {
+router.push({ path: `/movie-details/movie/${val}` })
+}
+
 async function prevPage() {
   if(moviePage.value === 1) return;
   moviePage.value -= 1;
@@ -110,7 +115,7 @@ watch(
       </div>
 
       <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.moviesGenre" :key="movies.id" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3">
+        <div v-for="movies in movieStores.moviesGenre" :key="movies.id" @click="getMovieDetails(movies.id)" class="slide-from-bottom set-min-height bg-[rgb(255,255,255,0.3)] rounded-md aspect-[2/3] h-full w-full relative mb-3">
           <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md h-full w-full object-auto">
           <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ movies.title || movies.name }}</h2>
@@ -151,5 +156,6 @@ watch(
         </button>
       </div>
     </div>
+    
   </div>
 </template>

@@ -4,6 +4,7 @@ export const movieStore = defineStore('moviestores', {
     movieTitle: null,
     movieDescription: null,
     movieImage: null,
+    movieId: null,
     homePageLoading: false,
     homePageError: false,
     isLoading: false, // Loading state for homepage displaying movies
@@ -38,6 +39,7 @@ export const movieStore = defineStore('moviestores', {
          this.movieTitle = fetchedMovie[movieLength].title;
          this.movieDescription = fetchedMovie[movieLength].overview;
          this.movieImage = fetchedMovie[movieLength].backdrop_path;
+         this.movieId = fetchedMovie[movieLength].id;
       }
       catch(error) {
           this.homePageLoading = false;

@@ -35,6 +35,11 @@ async function showMovies() {
   movieCards.value = Array.from(document.querySelectorAll('.slide-from-bottom'));
   observeMovies();
 }
+// Get movies Details
+function getMovieDetails(val) {
+router.push({ path: `/movie-details/${movieType.value}/${val}` })
+}
+
 
 // Pagination
 async function nextPage() {
@@ -97,7 +102,7 @@ watch(
       </div>
 
       <div class="auto-grid mt-5">
-        <div v-for="movies in movieStores.moviesType" :key="movies.id" class="slide-from-bottom bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 aspect-[2/3] h-full w-full relative mb-3">
+        <div v-for="movies in movieStores.moviesType" :key="movies.id" @click="getMovieDetails(movies.id)" class="slide-from-bottom set-min-height bg-[rgb(255,255,255,0.3)] rounded-md top-0 left-0 aspect-[2/3] h-full w-full relative mb-3">
           <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-md h-full w-full object-auto">
           <div class="bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)] absolute top-0 left-0 h-full w-full rounded-md"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60] bottom-[25px]">{{ movies.title || movies.name }}</h2>
@@ -127,6 +132,7 @@ watch(
         <h2 class="text-white text-center">Loading....</h2>
       </div>
     </div>
+    
 
     <!-- Error -->
     <div v-if="movieStores.isError" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">

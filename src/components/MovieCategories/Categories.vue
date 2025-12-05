@@ -67,7 +67,7 @@ router.push({ path: `/movie-details/${val1}/${val2}`})
            <!-- Trending Movies --> 
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','display']"/> Trending movies</h2><button @click="pushToMovieType('movie','popular','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class=" mb-4 mt-3 flex gap-3 overflow-x-scroll">
-        <div v-for="movies in movieStores.popularMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+        <div v-for="movies in movieStores.popularMovies" :key="movies.id" @click="getMovieDetails('movie',movies.id)" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
           <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-lg object-cover">
           <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
@@ -78,7 +78,7 @@ router.push({ path: `/movie-details/${val1}/${val2}`})
             <!-- Top TvShows -->
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','fire']"/> Top TvShows</h2><button @click="pushToMovieType('tv','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
          <div class="mb-4 mt-3 flex gap-3 overflow-x-scroll">
-          <div v-for="movies in movieStores.topRatedTvShows" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+          <div v-for="movies in movieStores.topRatedTvShows" :key="movies.id" @click="getMovieDetails('tv',movies.id)" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
           <img :src="`https://image.tmdb.org/t/p/original${movies.poster_path}`" class="h-full w-full rounded-lg object-cover">
           <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
@@ -89,7 +89,7 @@ router.push({ path: `/movie-details/${val1}/${val2}`})
            <!-- Top Rated Movies --> 
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','star']"/> Top Rated movies</h2><button @click="pushToMovieType('movie','top_rated','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
-       <div v-for="movies in movieStores.topRatedMovies" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+       <div v-for="movies in movieStores.topRatedMovies" :key="movies.id" @click="getMovieDetails('movie',movies.id)" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
           <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class=" rounded-lg h-full w-full object-cover">
           <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
@@ -101,7 +101,7 @@ router.push({ path: `/movie-details/${val1}/${val2}`})
             <!-- Airing Today -->
       <div class="flex justify-between items-center font-[roboto_condensed]"><h2 class="text-xl font-bold"><FontAwesomeIcon :icon="['fas','clock']"/> Airing Today</h2><button @click="pushToMovieType('tv','airing_today','1')">More<FontAwesomeIcon :icon="['fas','angle-right']"/></button></div>
       <div class="mb-4 mt-3 overflow-x-scroll flex gap-3">
-        <div v-for="movies in movieStores.airingToday" :key="movies.id" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
+        <div v-for="movies in movieStores.airingToday" :key="movies.id" @click="getMovieDetails('tv',movies.id)" class="animate-in relative w-[full] aspect-[2/3] h-[290px] md:h-[450px] rounded-lg shrink-0 bg-[rgb(255,255,255,0.3)]">
           <img :src=" `https://image.tmdb.org/t/p/original${movies.poster_path}`" class="rounded-lg left-0 absolute top-0 h-full w-full object-auto">
           <div class="absolute inset-0 top-0 left-0 rounded-lg bg-gradient-to-b from-[rgba(0,0,0,0)] via-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
           <h2 class="absolute p-[10px] font-bold text-[13px] z-[60]  bottom-[25px] ">{{ movies.title || movies.name }}</h2> 
@@ -112,7 +112,7 @@ router.push({ path: `/movie-details/${val1}/${val2}`})
     </div>
     
               <!-- loading movie -->
-    <div v-if="movieStores.isLoading" class="p-5 fixed top-0 left-0 bg-black h-screen w-full grid items-center">
+    <div v-if="movieStores.isLoading" class="p-5 top-0 left-0 bg-black h-screen w-full grid items-center">
       <div class="text grid justify-center">
         <div class="spinner mb-4 border border-6 border-[rgb(255,255,255,0.3)] border-t-white h-[40px] w-[40px] aspect-[1/1] rounded-full"></div>
         <h2 class="text-white text-center">Loading....</h2>

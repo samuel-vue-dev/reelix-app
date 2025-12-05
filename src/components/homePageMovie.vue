@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { movieStore } from '@/AppState/movies'
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const movieStores = movieStore()
 let intervalId = null
 
@@ -13,6 +14,11 @@ async function fetchHomeMovie() {
 function tryAgain() {
 fetchHomeMovie();
 }
+//get Movie Details
+function getMovieDetails(val1,val2) {
+router.push({ path: `/movie-details/${val1}/${val2}`})
+}
+
 
 //mount when page load
 onMounted(() => {
@@ -35,7 +41,7 @@ onUnmounted(() => {
           <div class="">
             <h2 class="text-5xl font-bold mb-4">{{ movieStores.movieTitle || "Loading...." }}</h2>
             <p class="set-text-ellipsis mb-3">{{ movieStores.movieDescription || "Loading...."}}</p>
-            <button class="px-6 py-5 bg-[#3CB371] rounded-sm text-md">
+            <button @click="getMovieDetails('movie', movieStores.movieId )" class="px-6 py-5 bg-[#3CB371] rounded-sm text-md">
               <FontAwesomeIcon :icon="['fas', 'play']" /> Watch Now
             </button>
           </div>

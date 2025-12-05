@@ -6,6 +6,7 @@ import MovieDetails from './components/ViewAndSaved/MovieDetails.vue';
 import MovieType from './components/DisplayMovieTypes/MovieType.vue';
 import GenreWatch from './components/DisplayMovieTypes/GenreWatch.vue';
 import WatchList from './components/ViewAndSaved/WatchList.vue';
+import BlogPost from './components/Blogs/BlogPost.vue';
 import { createRouter, createWebHistory } from "vue-router";
 export const router = createRouter({
   history: createWebHistory(),
@@ -17,7 +18,8 @@ export const router = createRouter({
     { path: "/watch/:type/:subType/:page", component: MovieType },
     { path: "/genre/:genreType/:id/:page", component: GenreWatch },
     { path: "/watch-list", component: WatchList },
-    { path: "/movie-details/:type/:id", component: MovieDetails }
+    { path: "/movie-details/:type/:id", component: MovieDetails },
+    { path: "/blog-post", component: BlogPost },
     ],
         scrollBehavior(to, from, savedPosition) {
       return { top: 0 };
